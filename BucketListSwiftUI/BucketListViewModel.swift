@@ -10,7 +10,8 @@ import Foundation
 class BucketListViewModel: ObservableObject {
     @Published var listItems: [BucketListItemModel] = [BucketListItemModel(name: "See the ocean"),
         BucketListItemModel(name: "Buy a house"),
-        BucketListItemModel(name: "Visit Japan")]
+        BucketListItemModel(name: "Visit Japan"),
+        BucketListItemModel(name: "Visit China")]
     
     //MARK: - CRUD functions
     func createItem(name: String) {
