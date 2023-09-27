@@ -16,10 +16,12 @@ struct ContentView: View {
         VStack {
             TextField("", text: $listItemName)
                 .onSubmit {
-                    viewModel.listItems.append(BucketListItemModel(name: listItemName))
+                    viewModel.createItem(name: listItemName)
+                    listItemName = ""
                 }
                 .padding(.all)
                 .border(Color(uiColor: .cyan))
+                .shadow(radius: 5)
             //BacketList
             List {
                 ForEach(viewModel.listItems) { item in
@@ -34,10 +36,19 @@ struct ContentView: View {
                         Text(item.name)
                     }
                 }
+                .onDelete(perform: viewModel.deleteItem(index:))
+                .frame(minHeight: 50)
+                .listRowSeparator(.hidden, edges: .all)
             }
         }
         .padding()
+        .navigationTitle("Bucket List")
+        .navigationBarTitleDisplayMode(.inline)
+        .listStyle(.plain)
+        .onAppear {
+        viewModel.loadFromToPersistenceStore()
     }
+ }
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -45,3 +56,4 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
